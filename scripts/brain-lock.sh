@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 # brain-lock.sh - one OS-flat local mutex for brrain write operations.
 #
-# WHY THIS EXISTS. Rainier runs ~6 Claude tabs against ONE local brain repo at
-# once. remember/refine/audit each read-modify-write shared files (inbox.md, the
+# WHY THIS EXISTS. Several concurrent agent sessions may use one local brain repo
+# at once. remember/refine/audit each read-modify-write shared files (inbox.md, the
 # canonical pages) and run git in that one repo. Without serialization two tabs
 # can collide on .git/index.lock, or clobber refine's whole-file watermark
 # rewrite (a read-modify-write of inbox.md). This mutex serializes the small
@@ -64,10 +64,10 @@ die() { printf 'brain-lock: %s\n' "$*" >&2; exit 1; }
 # NOT `cd`+`pwd`: in Git Bash that resolves the Windows Temp dir through its /tmp
 # mount alias, so the same physical dir can yield two different keys depending on
 # how it was entered.) All realistic spellings of one repo collapse to one key:
-#   C:/Users/rschleke/brain   (registry form, forward slashes)
-#   C:\Users\rschleke\brain   (backslashes)
-#   /c/Users/rschleke/brain   (Git Bash drive form)
-# all -> key "c_Users_rschleke_brain". mac/linux paths (/Users/..., /home/...)
+#   C:/Users/example/brain   (registry form, forward slashes)
+#   C:\Users\example\brain   (backslashes)
+#   /c/Users/example/brain   (Git Bash drive form)
+# all -> key "c_Users_example_brain". mac/linux paths (/Users/..., /home/...)
 # have no drive and pass through unchanged. In practice remember/refine/audit all
 # read the brain path from the SAME registry `active` field, so they pass an
 # identical string regardless; this normalization is the belt-and-suspenders.
