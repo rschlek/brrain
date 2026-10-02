@@ -1,0 +1,12 @@
+project: brrain   # required; equals the top-level folder in the projects root
+title: brrain   # human-readable name
+summary: "A local-first, git-backed second-brain plugin for Claude Code and Codex that keeps a user's knowledge in a portable plain-Markdown repository, with skills for capture, trust-gated synthesis, recall, and auditing."   # required
+scope: personal   # from the profile's scope list, or none once decided
+visibility: public     # anyone can read this repo
+tracking:              # map of system -> reference
+memory:                # tag, state_model, instance, bank as applicable
+links:                 # sources, outputs, docs, people
+# repo_role:           # only in a multi-repo project: parent, or this repo's role
+# repos:               # only in a multi-repo project: role -> remote URL
+# parked:              # only when deliberately parked: since (date) and reason
+# archived:            # same shape as parked
